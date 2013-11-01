@@ -12,10 +12,19 @@ var tasks = [{'description' : 'mess up my to do app'},
 {'taskDesc':'Bleed air out of hot water radiators','completed':true}, 
 {'taskDesc':'Change water filter in refrigerator','completed':false}];
 
+    var li;
+    var ul;
+    
+    createElement('<ul class="list-group">');
 
     for(var i=0; i < tasks.length; i++) {
     
-//        createElement ('<li class="list-group-item success">' + '<span class="glyphicon glyphicon-ok"></span>   ' + task.taskDesc + '</li>');
+        createElement ('<li class="list-group-item success">' + '<span class="glyphicon glyphicon-ok"></span>   ' + tasks.taskDesc + '</li>');
+        $('ul').append(li);
+        
+        createElement ('<li class="list-group-item">' + '<span class="glyphicon glyphicon-ok"></span>   ' + tasks.taskDesc + '</li>');
+        $('ul').append(li);
+        
     
     } // End of "For" loop
 
