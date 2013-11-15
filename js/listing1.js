@@ -1,4 +1,3 @@
-
 // Global definition of variable tasks
 var tasks;
 
@@ -92,7 +91,7 @@ var tasks = [{'completed' : false},
         try {
             ul.append(displayTasks(tasks[i]));
         } catch(error) {
-            console.log("There was an error: " + error);
+            console.log("An error occurred: " + error);
         }
     
     } // End of "For" loop
