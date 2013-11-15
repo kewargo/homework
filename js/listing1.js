@@ -21,7 +21,7 @@ function displayTasks(task) {
     }
     
     if(typeof task.completed == 'undefined') {
-        throw 'This task has no completed status!';
+        throw 'This task has no completion status!';
     }
         
     if(task.completed) {

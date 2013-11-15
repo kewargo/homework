@@ -14,12 +14,7 @@
 
 .list-group-item-right {
   float: right;
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  
 }
 
 .success {
