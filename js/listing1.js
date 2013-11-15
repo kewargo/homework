@@ -32,7 +32,7 @@ function displayTasks(task) {
 }
 
 
-// Constructor function called Task.
+// Constructor function called Task. Passes in to-do task as argument.
 // It returns an array containing taskDesc, completed and dueDate.
 
 function Task(taskDesc) {
@@ -51,13 +51,20 @@ function Task(taskDesc) {
 
 var oneWeekFromNow = new Date();
                 oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
-
+var tasks; 
 
 /* Write a function (addTask) that calls “new Task” and adds the object returned
 from that function to the array where we keep the rest of our task objects. 
 When that’s done, you’ll need to re-render the list HTML. */
 
-function addTask(arrayObject) { new Task();
+    function addTask(taskDesc) {
+        var newTask = new Task(taskDesc);
+       tasks.push(newTask);
+        var li = displayTasks(newTask);
+        $('ul.nav-list').append(li);
+    }
+
+/* function addTask(arrayObject) { new Task();
     
     var newTask = new Task(arrayObject);
     tasks.push(newTask);
@@ -65,7 +72,7 @@ function addTask(arrayObject) { new Task();
     var li = displayTasks(newTask);
     
     $('ul.nav-list').append(li);
-}
+} */
 
 /* *************************************************************** */
 /* jQuery Document Ready function with task list code within it    */ 
