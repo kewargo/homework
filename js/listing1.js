@@ -51,7 +51,6 @@ function Task(taskDesc) {
 
 var oneWeekFromNow = new Date();
                 oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
-var tasks; 
 
 /* Write a function (addTask) that calls “new Task” and adds the object returned
 from that function to the array where we keep the rest of our task objects. 
@@ -81,7 +80,7 @@ When that’s done, you’ll need to re-render the list HTML. */
 
 $(document).ready(function (){
 
-var tasks = [{'completed' : false},
+tasks = [{'completed' : false},
 {'taskDesc' : 'mess up my to do app'},
 {'taskDesc' : 'Change oil in the Ram 2500','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
 {'taskDesc' : 'Change Oil in Subaru Forrester','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'},
