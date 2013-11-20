@@ -1,6 +1,6 @@
 // Global definition of variable tasks
 var tasks;
-
+var ul;
 var client_creds = {
         orgName:'kewargo',
         appName:'maintenancetasks'
@@ -82,6 +82,20 @@ When that’s done, you’ll need to re-render the list HTML. */
         $('ul.nav-list').append(li);
 
     }
+    
+    
+    function completeTasks($task) {
+     // mark the task HTML complete with .success
+     $task.addClass('success');
+     
+     // Read through tasks array and change to "completed" if double clicked
+     for(var i=0; i < tasks.length; i++) { 
+         if($task.text().indexOf(tasks[i].taskDesc) > -1) {
+             tasks[i].completed = true;
+             }
+         }
+     }
+ 
 
 /* *************************************************************** */
 /* jQuery Document Ready function with task list code within it    */ 
@@ -93,12 +107,12 @@ $(document).ready(function (){
     //Initializes the SDK. Also instantiates Apigee.MonitoringClient
 var dataClient = new Apigee.Client(client_creds); 
 
-    $.ajax({
-        'url':'https://api.usergrid.com/kewargo/maintenancetasks',
-        'type':'GET', 'success':function(data) {
-          console.log(data);
-          tasks = data.entities;
-    /*
+//    $.ajax({
+//        'url':'https://api.usergrid.com/kewargo/maintenancetasks',
+//        'type':'GET', 'success':function(data) {
+//          console.log(data);
+//          tasks = data.entities;
+      
     tasks = [{'completed' : false},
     {'taskDesc' : 'mess up my to do app'},
     {'taskDesc' : 'Change oil in the Ram 2500','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
@@ -108,7 +122,7 @@ var dataClient = new Apigee.Client(client_creds);
     {'taskDesc' : 'Change batteries in Carbon Dioxide Detectors','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
     {'taskDesc' : 'Bleed air out of hot water radiators','completed':true, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
     {'taskDesc' : 'Change water filter in refrigerator','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}];
-    */
+    
         var ul = $('<ul/>', {'class' : 'nav nav-list'});
         
             for(var i=0; i < tasks.length; i++) {
@@ -122,9 +136,15 @@ var dataClient = new Apigee.Client(client_creds);
             } // End of "For" loop
     
             $('.panel-primary').append(ul);
-        }    
+            
+//        }    
         
-    }); // end of ajax function
+//    }); // end of ajax function
+
+
+    ul.on('dblclick', 'li', function(){
+         completeTasks($(this));
+     });
 
 
     $('#newTaskForm').on('submit', function(event){
@@ -134,5 +154,6 @@ var dataClient = new Apigee.Client(client_creds);
         
         addTask(newTaskName);
     });
+    
 
 }); //End of Document Ready Function
