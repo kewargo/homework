@@ -8,7 +8,7 @@
     <meta name="author" content="Kerry Wargo">
     <link rel="shortcut icon" href="ico/favicon.png">
 
-    <title>Maintenance To-Do List Application</title>
+    <title>Maintenance Task List Application</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -29,13 +29,15 @@
     
     <!-- jQuery -->
     <script src="js/jquery-1.10.2.js"></script>            
-    <script src="js/listing1.js"></script>
+    <script src="js/listing5.js"></script>
+    <script type="text/javascript" src="js/apigee.js"></script>
+
     
   </head>
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+ <!--   <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -51,17 +53,30 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="container">
       <div class="panel panel-primary">
         <div class="panel heading">
-            <h3 class="panel title">Maintenance To-Do Application</h3>
-        </div> <!-- end panel title -->
-      </div>
-
+            <h2 class="panel title">Maintenance Task List Application</h2>
+        </div> <!-- end panel heading "Maint Task List" -->
+        
+            <div class="panel panel-warning"></div>
+            <!--    <div class ="panel-heading">
+                    <h3 class="panel title">Add</h3>
+                </div> <!-- end panel heading "Add" -->
+            <div class="panel-body">
+                <form class="form-inline" role="form" id="newTaskForm">
+                    <div class="form-group col-xs-4">
+                        <label class="sr-only" for="newTaskInput">New Task</label>
+                        <input type="text" class="form-control input-lg" id="newTaskInput" placeholder="Add new maintenance task">
+                    </div> <!-- end form-group -->
+                </form>
+                <button type="submit" class="btn btn-lg btn-primary">Add Task</button>
+            </div> <!-- end panel-body -->
+      </div> <!-- end panel-primary -->
     </div><!-- /.container -->
 
     <!-- Bootstrap core JavaScript
