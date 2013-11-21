@@ -6,8 +6,6 @@ var client_creds = {
         appName:'maintenancetasks'
     };
 
-
-
 /* ****************************************************************** */
 /* Create all functions here. jQuery Document Ready function is below */
 /* ****************************************************************** */
@@ -50,7 +48,6 @@ function Task(taskDesc) {
         arrayObject.dueDate = oneWeekFromNow;
     
     return arrayObject;  
-    
 }
 
 
@@ -69,7 +66,7 @@ When that’s done, you’ll need to re-render the list HTML. */
         console.log(JSON.stringify(newTask));
 
         $.ajax({
-            'url': 'http://api.usergrid.com/kewargo/maintenancetasks',
+            'url': 'http://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks',
             'type': 'POST',
             'data' : JSON.stringify(newTask),
             'success': function(data) {
@@ -80,9 +77,10 @@ When that’s done, you’ll need to re-render the list HTML. */
         tasks.push(newTask);
         var li = displayTasks(newTask);
         $('ul.nav-list').append(li);
-
     }
     
+    
+// Function to set tasks to completed status
     
     function completeTasks($task) {
      // mark the task HTML complete with .success
@@ -105,25 +103,14 @@ When that’s done, you’ll need to re-render the list HTML. */
 $(document).ready(function (){
     
     //Initializes the SDK. Also instantiates Apigee.MonitoringClient
-var dataClient = new Apigee.Client(client_creds); 
+// var dataClient = new Apigee.Client(client_creds); 
 
-//    $.ajax({
-//        'url':'https://api.usergrid.com/kewargo/maintenancetasks',
-//        'type':'GET', 'success':function(data) {
-//          console.log(data);
-//          tasks = data.entities;
-      
-    tasks = [{'completed' : false},
-    {'taskDesc' : 'mess up my to do app'},
-    {'taskDesc' : 'Change oil in the Ram 2500','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
-    {'taskDesc' : 'Change Oil in Subaru Forrester','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'},
-    {'taskDesc' : 'Change Oil in Mini Cooper','completed':true, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'},
-    {'taskDesc' : 'Change air filter in HVAC Air Handler','completed':true, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'},
-    {'taskDesc' : 'Change batteries in Carbon Dioxide Detectors','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
-    {'taskDesc' : 'Bleed air out of hot water radiators','completed':true, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}, 
-    {'taskDesc' : 'Change water filter in refrigerator','completed':false, 'dueDate' : 'Tue Nov 12 2013 18:32:49 GMT-0500 (EST)'}];
-    
-        var ul = $('<ul/>', {'class' : 'nav nav-list'});
+   $.ajax({        'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks',         
+   'type':'GET', 'success':function(data) {          
+       console.log(data);
+          tasks = data.entities;
+
+         ul = $('<ul/>', {'class' : 'nav nav-list'});
         
             for(var i=0; i < tasks.length; i++) {
         
@@ -136,24 +123,24 @@ var dataClient = new Apigee.Client(client_creds);
             } // End of "For" loop
     
             $('.panel-primary').append(ul);
+
+            // Listen for Double Click to complete a task
+            ul.on('dblclick', 'li', function(){
+                completeTasks($(this));
+            }); // end Double click to complete tasks
             
-//        }    
+            // Listen for click on "Add Task" button
+            $('#newTaskForm').on('submit', function(event){
+                event.preventDefault();
+
+                var newTaskName = $(this).find('input').val();
         
-//    }); // end of ajax function
+                addTask(newTaskName);
+            });
 
-
-    ul.on('dblclick', 'li', function(){
-         completeTasks($(this));
-     });
-
-
-    $('#newTaskForm').on('submit', function(event){
-        event.preventDefault();
-
-        var newTaskName = $(this).find('input').val();
+        }   // end of "GET" success function 
         
-        addTask(newTaskName);
-    });
-    
+    }); // end of ajax function
+
 
 }); //End of Document Ready Function
