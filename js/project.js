@@ -77,7 +77,8 @@ When that’s done, you’ll need to re-render the list HTML. */
     
         tasks.push(newTask);
         var li = displayTasks(newTask);
-        $('ul.nav-list').append(li);
+//        $('ul.nav-list').append(li);
+          $('#tabs #tabs-1').append(li);
     } // end addTask function
     
     
@@ -123,8 +124,9 @@ $(document).ready(function (){
         
             } // End of "For" loop
     
-            $('.panel-primary').append(ul);
-
+//            $('.panel-primary').append(ul);
+              $('#tabs-1').append(ul);
+              
             // Listen for Double Click to complete a task
             ul.on('dblclick', 'li', function(){
                 completeTasks($(this));

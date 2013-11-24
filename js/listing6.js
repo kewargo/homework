@@ -77,7 +77,8 @@ When that’s done, you’ll need to re-render the list HTML. */
     
         tasks.push(newTask);
         var li = displayTasks(newTask);
-        $('ul.nav-list').append(li);
+//        $('ul.nav-list').append(li);
+          $('ul.tabs-1').append(li);
     } // end addTask function
     
     
