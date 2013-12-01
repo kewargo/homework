@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en"></html>
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="To fulfill the homework requirements for Intro to Programming Fall/2013 - TJ Nicolaides">
+    <meta name="description" content="To fulfill the Final Project requirements for Intro to Programming Fall/2013 - TJ Nicolaides">
     <meta name="author" content="Kerry Wargo">
     <link rel="shortcut icon" href="ico/favicon.png">
 
@@ -13,13 +13,13 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/metallic.css" type="text/css
     <link href="css/starter-template.css" rel="stylesheet">
-    
     <link href="css/override.css" rel="stylesheet">
     
 
@@ -30,8 +30,9 @@
     <![endif]-->
     
     <!-- jQuery -->
-    <script src="js/jquery-1.10.2.js"></script>            
-    <script src="js/listing6.js"></script>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="js/listing7.js"></script>
     <script type="text/javascript" src="js/apigee.js"></script>
     <script type="text/javascript" src="js/zebra_datepicker.src.js"></script>
 
@@ -39,37 +40,14 @@
   </head>
 
   <body>
-
- <!--   <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
-
     <div class="container">
-      <div class="panel panel-primary">
+
         <div class="panel heading">
             <h2 class="panel title">Maintenance Task List Application</h2>
         </div> <!-- end panel heading "Maint Task List" -->
         
             <div class="panel panel-warning"></div>
-            <!--    <div class ="panel-heading">
-                    <h3 class="panel title">Add</h3>
-                </div> <!-- end panel heading "Add" -->
+    
             <div class="panel-body">
                 <form class="form-inline" role="form" id="newTaskForm">
                     <div class="form-group col-xs-4">
@@ -80,10 +58,35 @@
                         <input type="text" class="datepicker input-lg" id="newDateInput" placeholder="Select a due date">
                         <button type="submit" class="btn btn-lg btn-primary">Add Task</button>
                 </form>
-                
-            </div> <!-- end panel-body -->
 
-    </div><!-- /.container -->
+<!----------------------------------------------->
+<!-- jQuerie UI Tabs HTML                      -->
+<!----------------------------------------------->    
+                <div id="dialog" title="Tab data">
+                    <form>
+                        <fieldset class="ui-helper-reset">
+                              <label for="tab_title">Title</label>
+                              <input type="text" name="tab_title" id="tab_title" value="" class="ui-widget-content ui-corner-all" />
+            
+                        </fieldset>
+                    </form>
+                </div>
+                    
+
+ 
+                <button id="add_tab">Add Tab</button>
+             
+                <div id="tabs">
+                  <ul>
+                    <li><a href="#tabs-1">Nunc tincidunt</a> <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+                  </ul>
+                  <div id="tabs-1">
+                    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+                  </div>
+                </div>
+ 
+        </div> <!-- end panel-body -->
+    </div> <!-- .container -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

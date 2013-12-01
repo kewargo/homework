@@ -86,11 +86,13 @@ When that’s done, you’ll need to re-render the list HTML. */
     
     function completeTasks($task) {
      // mark the task HTML complete with .success
-     $task.addClass('success');
+     $task.removeClass('span glyphicon glyphicon-pushpin').addClass('success').addClass('glyphicon glyphicon-ok');
+     
      // Read through tasks array and change to "completed" if double clicked
      for(var i=0; i < tasks.length; i++) { 
          if($task.text().indexOf(tasks[i].taskDesc) > -1) {
              tasks[i].completed = true;
+//             $task.removeClass('span glyphicon glyphicon-pushpin').addClass('glyphicon glyphicon-ok');
 
              }
          }

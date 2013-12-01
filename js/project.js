@@ -47,6 +47,7 @@ function Task(taskDesc) {
         arrayObject.taskDesc = taskDesc || 'Default task description';
         arrayObject.completed = false;
         arrayObject.dueDate = oneWeekFromNow;
+        arrayObject.id = ('#tabs.currentChild');
     
     return arrayObject;  
 }
@@ -86,12 +87,11 @@ When that’s done, you’ll need to re-render the list HTML. */
     
     function completeTasks($task) {
      // mark the task HTML complete with .success
-     $task.addClass('success');
+     $task.addClass('success').addClass('glyphicon glyphicon-ok').remove('span glyphicon glyphicon-pushpin');
      // Read through tasks array and change to "completed" if double clicked
      for(var i=0; i < tasks.length; i++) { 
          if($task.text().indexOf(tasks[i].taskDesc) > -1) {
              tasks[i].completed = true;
-
              }
          }
      } // end completeTasks function
@@ -103,6 +103,8 @@ When that’s done, you’ll need to re-render the list HTML. */
 /* *************************************************************** */
 
 $(document).ready(function (){
+    
+    $('h1').addClass('center');
     
     //Initializes the SDK. Also instantiates Apigee.MonitoringClient
 // var dataClient = new Apigee.Client(client_creds); 
@@ -143,11 +145,16 @@ $(document).ready(function (){
             // Listen for click on "Add Task" button
             $('#newTaskForm').on('submit', function(event){
                 event.preventDefault();
-
                 var newTaskName = $(this).find('input').val();
-        
                 addTask(newTaskName);
             });  // end listener
+            
+            // Listen for click on "Remove Completed" button
+            $('#newTaskForm').on('click', '#removecompleted', function(event){
+//                event.preventDefault();
+                removeCompleted();
+            });  // end listener
+
 
         }   // end of "GET" success function 
         

@@ -14,16 +14,32 @@
 
 .list-group-item-right {
   float: right;
-  
+}
+
+#removecompleted {
+  float: right;
+}
+
+#add_tab {
+    cursor:pointer;
+    margin-top:15px;
+    margin-left:15px;
 }
 
 .success {
     color: #468847;
     background-color: #dff0d8;
  }
+
+.center {
+    text-align: center;
+}
  
-#target {
-    
+btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 30px; 
+    Margin-left: 30px;        
 }
 
 /* CSS for jQuery UI Tabs */

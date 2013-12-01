@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css" />
   
   <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -107,20 +106,23 @@
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel heading">
-        <h2 class="panel title">Maintenance Task List Application</h2>
+        <h1 class="panel title">Maintenance Task List Application</h1>
     </div> <!-- end panel heading "Maint Task List" -->
         
-        <div class="panel panel-warning"></div>
-            <div class="panel-body">
+
             
                 <form class="form-inline" role="form" id="newTaskForm">
                     <div class="form-group col-xs-4">
                         <label class="sr-only" for="newTaskInput">New Task</label>
                         <input type="text" class="form-control input-lg" id="newTaskInput" placeholder="Add new maintenance task">
-                        
-                        </div> <!-- end form-group -->
+                    </div> <!-- end form-group -->
+                    <div class="form-group col-xs-3">
                         <input type="text" class="datepicker input-lg" id="newDateInput" placeholder="Select a due date">
-                        <button type="submit" class="btn btn-lg btn-primary">Add Task</button>
+                    </div>
+                    <div class="form-group col-xs-5">
+                        <button type="submit" class="btn btn-lg btn-success">Add the Task</button>
+                        <button type="button" id="removecompleted" class="btn btn-lg btn-danger">Remove Completed</button>
+                    </div>
                 </form>
                     
                 <div id="dialog" title="Tab data">
@@ -133,9 +135,10 @@
                     </fieldset>
                   </form>
                 </div>
-                 
-                <button id="add_tab">Add Tab</button>
-                 
+<!--                <div class="col-xs-12"></div>_</div> -->
+                <div> 
+                <button id="add_tab">Add New Tab</button>
+                </div> 
                 <div id="tabs">
                   <ul>
                     <li><a href="#tabs-1">Nunc tincidunt</a> <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
@@ -144,7 +147,6 @@
 <!--                    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p> -->
                   </div>
                 </div>
-
             </div> <!-- end panel-body -->
         </div> <!-- end panel-primary --> 
     </div> <!-- /.container --> 
