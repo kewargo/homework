@@ -1,7 +1,7 @@
 // Global definition of variable tasks
 var tasks;
+var uuid;
 var ul;
-var $zdp;
 var client_creds = {
         orgName:'kewargo',
         appName:'maintenancetasks'
@@ -14,8 +14,9 @@ var client_creds = {
 // Function to delete completed tasks by selecting tasks with a class of .success
 
 function removeCompleted(){
-    $('.success').remove();   
-}
+    $('.success').remove(); 
+    console.log(uuid);
+    }
 
 
 // Function to write tasks to screen
@@ -42,12 +43,15 @@ function displayTasks(task) {
 // It returns an array containing taskDesc, completed and dueDate.
 
 function Task(taskDesc) {
+    var today = new Date();
     var arrayObject = {};
-    
         arrayObject.taskDesc = taskDesc || 'Default task description';
         arrayObject.completed = false;
-        arrayObject.dueDate = oneWeekFromNow;
-        arrayObject.id = ('#tabs.currentChild');
+        
+        arrayObject.dueDate = new Date($('#newDateInput').val());
+        if ('dueDate' == " Invalid Date ") {
+            arrayObject.dueDate = new Date()}
+        arrayObject.uuid = uuid;
     
     return arrayObject;  
 }
@@ -55,8 +59,8 @@ function Task(taskDesc) {
 
 // Calculate date one week from now
 
-var oneWeekFromNow = new Date();
-                oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
+/* var oneWeekFromNow = new Date();
+                oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7); */
 
 /* Write a function (addTask) that calls “new Task” and adds the object returned
 from that function to the array where we keep the rest of our task objects. 
@@ -64,7 +68,8 @@ When that’s done, you’ll need to re-render the list HTML. */
 
     function addTask(taskDesc) {
         var newTask = new Task(taskDesc);
-        
+//        console.log($('#newDateInput').val());
+//        console.log(new Date($('#newDateInput').val()));
         console.log(JSON.stringify(newTask));
 
         $.ajax({
@@ -80,6 +85,11 @@ When that’s done, you’ll need to re-render the list HTML. */
         var li = displayTasks(newTask);
 //        $('ul.nav-list').append(li);
           $('#tabs #tabs-1').append(li);
+          
+         // Re-initialize the placeholder text on the submit form
+        $('input#newTaskInput').val($(this).attr('placeholder')); 
+        $('input#newDateInput').val($(this).attr('placeholder'));
+          
     } // end addTask function
     
     
@@ -87,11 +97,13 @@ When that’s done, you’ll need to re-render the list HTML. */
     
     function completeTasks($task) {
      // mark the task HTML complete with .success
-     $task.addClass('success').addClass('glyphicon glyphicon-ok').remove('span glyphicon glyphicon-pushpin');
+     $task.addClass('success');
+     $task.find('.glyphicon-pushpin').removeClass('glyphicon-pushpin').addClass('glyphicon-ok');
      // Read through tasks array and change to "completed" if double clicked
      for(var i=0; i < tasks.length; i++) { 
          if($task.text().indexOf(tasks[i].taskDesc) > -1) {
              tasks[i].completed = true;
+             uuid = tasks[i].uuid;
              }
          }
      } // end completeTasks function
@@ -109,10 +121,11 @@ $(document).ready(function (){
     //Initializes the SDK. Also instantiates Apigee.MonitoringClient
 // var dataClient = new Apigee.Client(client_creds); 
 
-   $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks',         
+   $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?limit=100',         
    'type':'GET', 'success':function(data) {          
        console.log(data);
           tasks = data.entities;
+            console.log(data.entities);
 
          ul = $('<ul/>', {'class' : 'nav nav-list'});
         
@@ -140,7 +153,8 @@ $(document).ready(function (){
             format: 'D M d, Y', direction: true
             }); 
             
- //           $zdp = $('#element').data('Zebra_DatePicker');
+//            $zdp = $('#element').data('Zebra_DatePicker');
+//            console.log($('#newDateInput').val());
             
             // Listen for click on "Add Task" button
             $('#newTaskForm').on('submit', function(event){
@@ -148,7 +162,8 @@ $(document).ready(function (){
                 var newTaskName = $(this).find('input').val();
                 addTask(newTaskName);
             });  // end listener
-            
+
+
             // Listen for click on "Remove Completed" button
             $('#newTaskForm').on('click', '#removecompleted', function(event){
 //                event.preventDefault();
