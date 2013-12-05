@@ -49,7 +49,7 @@ function Task(taskDesc) {
         arrayObject.completed = false;
         
         arrayObject.dueDate = new Date($('#newDateInput').val());
-        if ('dueDate' == " Invalid Date ") {
+        if ('arrayObject.dueDate' == ' Invalid Date' || ' invalid date') {
             arrayObject.dueDate = new Date()}
         arrayObject.uuid = uuid;
     
