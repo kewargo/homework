@@ -1,6 +1,7 @@
 // Global definition of variable tasks
 var tasks;
 var uuid;
+var printDate;
 var ul;
 var client_creds = {
         orgName:'kewargo',
@@ -32,9 +33,19 @@ function displayTasks(task) {
     }
         
     if(task.completed) {
-        return $('<li/>', {'class' : 'list-group-item success'}).text(' ' + task.taskDesc).prepend($('<span/>', {'class' : 'glyphicon glyphicon-ok'})).append($('<span/>', {'class' : 'list-group-item-right success'}).text(' ' + task.dueDate));
+        printDate = new Date(task.dueDate);
+        return $('<li/>', {'class' : 'list-group-item success'}).text
+        (' ' + task.taskDesc).prepend($('<span/>', 
+        {'class' : 'glyphicon glyphicon-ok'})).append
+        ($('<span/>', {'class' : 'list-group-item-right success'}).text
+        (' ' + printDate));
     } else {
-        return $('<li/>', {'class' : 'list-group-item'}).text(' ' + task.taskDesc).prepend($('<span/>', {'class' : 'glyphicon glyphicon-pushpin'})).append($('<span/>', {'class' : 'list-group-item-right'}).text(' ' + task.dueDate));
+        printDate = new Date(task.dueDate);
+        return $('<li/>', {'class' : 'list-group-item'}).text
+        (' ' + task.taskDesc).prepend($('<span/>', 
+        {'class' : 'glyphicon glyphicon-pushpin'})).append
+        ($('<span/>', {'class' : 'list-group-item-right'}).text
+        (' ' + printDate));
     }
 }
 
@@ -47,20 +58,18 @@ function Task(taskDesc) {
     var arrayObject = {};
         arrayObject.taskDesc = taskDesc || 'Default task description';
         arrayObject.completed = false;
-        
         arrayObject.dueDate = new Date($('#newDateInput').val());
-        if ('arrayObject.dueDate' == ' Invalid Date' || ' invalid date') {
-            arrayObject.dueDate = new Date()}
+  
+        var emptyEntry = (arrayObject.dueDate instanceof Date 
+        && !isNaN(arrayObject.dueDate.valueOf()));
+        
+        if(emptyEntry === false) {arrayObject.dueDate = today;}
+        
         arrayObject.uuid = uuid;
     
     return arrayObject;  
 }
 
-
-// Calculate date one week from now
-
-/* var oneWeekFromNow = new Date();
-                oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7); */
 
 /* Write a function (addTask) that calls “new Task” and adds the object returned
 from that function to the array where we keep the rest of our task objects. 
@@ -68,8 +77,6 @@ When that’s done, you’ll need to re-render the list HTML. */
 
     function addTask(taskDesc) {
         var newTask = new Task(taskDesc);
-//        console.log($('#newDateInput').val());
-//        console.log(new Date($('#newDateInput').val()));
         console.log(JSON.stringify(newTask));
 
         $.ajax({
@@ -119,9 +126,9 @@ $(document).ready(function (){
     $('h1').addClass('center');
     
     //Initializes the SDK. Also instantiates Apigee.MonitoringClient
-// var dataClient = new Apigee.Client(client_creds); 
+    // var dataClient = new Apigee.Client(client_creds); 
 
-   $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?limit=100',         
+   $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?limit=200',         
    'type':'GET', 'success':function(data) {          
        console.log(data);
           tasks = data.entities;
@@ -153,9 +160,6 @@ $(document).ready(function (){
             format: 'D M d, Y', direction: true
             }); 
             
-//            $zdp = $('#element').data('Zebra_DatePicker');
-//            console.log($('#newDateInput').val());
-            
             // Listen for click on "Add Task" button
             $('#newTaskForm').on('submit', function(event){
                 event.preventDefault();
@@ -166,7 +170,6 @@ $(document).ready(function (){
 
             // Listen for click on "Remove Completed" button
             $('#newTaskForm').on('click', '#removecompleted', function(event){
-//                event.preventDefault();
                 removeCompleted();
             });  // end listener
 
