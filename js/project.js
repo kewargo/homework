@@ -1,6 +1,7 @@
 // Global definition of variable tasks
 var tasks;
 var uuid;
+var qsl;
 var printDate;
 var ul;
 var client_creds = {
@@ -15,10 +16,22 @@ var client_creds = {
 // Function to delete completed tasks by selecting tasks with a class of .success
 
 function removeCompleted(){
-    $('.success').remove(); 
+    $('.success').remove();
+    qsl = ('?uuid='+uuid); 
+        $.ajax({
+            'url': 'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks',
+            'entities': {'uuid':uuid},
+            'type': 'DELETE',
+
+            'success': function(data) {
+                console.log(data);
+                }
+            });
+        
+    
+    $('button#removecompleted').addClass('hidden');
     console.log(uuid);
     }
-
 
 // Function to write tasks to screen
 
@@ -148,17 +161,20 @@ $(document).ready(function (){
     
 //            $('.panel-primary').append(ul);
               $('#tabs-1').append(ul);
+
               
             // Listen for Double Click to complete a task
             ul.on('dblclick', 'li', function(){
                 completeTasks($(this));
+                $('button#removecompleted').removeClass('hidden');
             }); // end Double click to complete tasks
-            
-            // Datepicker functionality
 
+           
+            // Datepicker functionality
             $('input.datepicker').Zebra_DatePicker({
             format: 'D M d, Y', direction: true
             }); 
+
             
             // Listen for click on "Add Task" button
             $('#newTaskForm').on('submit', function(event){
