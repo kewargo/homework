@@ -1,14 +1,15 @@
 // Global definition of variable tasks
 var tasks;
 var uuid;
-var qsl;
 var printDate;
 var ul;
-var client_creds = {
-        orgName:'kewargo',
-        appName:'maintenancetasks'
-    };
+//create the basic client object
 
+var client = {
+    orgName:'kewargo',
+    appName:'maintenancetasks'
+};
+        
 /* ****************************************************************** */
 /* Create all functions here. jQuery Document Ready function is below */
 /* ****************************************************************** */
@@ -17,17 +18,16 @@ var client_creds = {
 
 function removeCompleted(){
     $('.success').remove();
-    qsl = ('?uuid='+uuid); 
-        $.ajax({
-            'url': 'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks',
-            'entities': {'uuid':uuid},
-            'type': 'DELETE',
+    
+// Perform AJAX delete request using UUID
 
+        $.ajax({
+            'url': 'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?ql=where%20uuid%20%3D%20'+uuid,
+            'type': 'DELETE',
+            'params': {"ql" : ["where uuid = 0afd74ba-61be-11e3-b598-9de2f529c511"]},
             'success': function(data) {
-                console.log(data);
                 }
-            });
-        
+            }); 
     
     $('button#removecompleted').addClass('hidden');
     console.log(uuid);
@@ -48,14 +48,14 @@ function displayTasks(task) {
     if(task.completed) {
         printDate = new Date(task.dueDate);
         return $('<li/>', {'class' : 'list-group-item success'}).text
-        (' ' + task.taskDesc).prepend($('<span/>', 
+        (' ' + task.taskDesc).attr('data-uuid', task.uuid).prepend($('<span/>', 
         {'class' : 'glyphicon glyphicon-ok'})).append
         ($('<span/>', {'class' : 'list-group-item-right success'}).text
         (' ' + printDate));
     } else {
         printDate = new Date(task.dueDate);
         return $('<li/>', {'class' : 'list-group-item'}).text
-        (' ' + task.taskDesc).prepend($('<span/>', 
+        (' ' + task.taskDesc).attr('data-uuid', task.uuid).prepend($('<span/>', 
         {'class' : 'glyphicon glyphicon-pushpin'})).append
         ($('<span/>', {'class' : 'list-group-item-right'}).text
         (' ' + printDate));
@@ -78,7 +78,7 @@ function Task(taskDesc) {
         
         if(emptyEntry === false) {arrayObject.dueDate = today;}
         
-        arrayObject.uuid = uuid;
+        arrayObject.uuid = uuid
     
     return arrayObject;  
 }
@@ -97,6 +97,7 @@ When that’s done, you’ll need to re-render the list HTML. */
             'type': 'POST',
             'data' : JSON.stringify(newTask),
             'success': function(data) {
+                newTask.uuid = uuid;
                 console.log(data);
                 }
             });
@@ -138,13 +139,13 @@ $(document).ready(function (){
     
     $('h1').addClass('center');
     
-    //Initializes the SDK. Also instantiates Apigee.MonitoringClient
-    // var dataClient = new Apigee.Client(client_creds); 
-
-   $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?limit=200',         
+    
+    // Add tasks that exist in the Ajax Database file
+   $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?ql=order%20by%20dueDate%20dsc&limit=200',         
    'type':'GET', 'success':function(data) {          
        console.log(data);
           tasks = data.entities;
+          tasks.uuid = uuid;
             console.log(data.entities);
 
          ul = $('<ul/>', {'class' : 'nav nav-list'});
@@ -157,7 +158,7 @@ $(document).ready(function (){
                     console.log("An error occurred: " + error);
                 }
         
-            } // End of "For" loop
+            } // End of "For" loop adding Tasks
     
 //            $('.panel-primary').append(ul);
               $('#tabs-1').append(ul);
