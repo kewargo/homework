@@ -1,11 +1,10 @@
 // Global definition of variable tasks
 var tasks;
 var uuid;
-var tabId;
 var printDate;
-var entities;
 var ul;
 //create the basic client object
+
 var client = {
     orgName:'kewargo',
     appName:'maintenancetasks'
@@ -18,13 +17,14 @@ var client = {
 // Function to delete completed tasks by selecting tasks with a class of .success
 
 function removeCompleted(){
-    
     $('.success').remove();
     
-    // Perform AJAX delete request using UUID
+// Perform AJAX delete request using UUID
+
         $.ajax({
             'url': 'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?ql=where%20uuid%20%3D%20'+uuid,
             'type': 'DELETE',
+            'params': {"ql" : ["where uuid = 0afd74ba-61be-11e3-b598-9de2f529c511"]},
             'success': function(data) {
                 }
             }); 
@@ -32,7 +32,6 @@ function removeCompleted(){
     $('button#removecompleted').addClass('hidden');
     console.log(uuid);
     }
-
 
 // Function to write tasks to screen
 
@@ -49,15 +48,15 @@ function displayTasks(task) {
     if(task.completed) {
         printDate = new Date(task.dueDate);
         return $('<li/>', {'class' : 'list-group-item success'}).text
-        (' ' + task.taskDesc).attr('data-uuid', task.uuid).attr('data-tabId', task.tabId)
-        .prepend($('<span/>', {'class' : 'glyphicon glyphicon-ok'})).append
+        (' ' + task.taskDesc).attr('data-uuid', task.uuid).prepend($('<span/>', 
+        {'class' : 'glyphicon glyphicon-ok'})).append
         ($('<span/>', {'class' : 'list-group-item-right success'}).text
         (' ' + printDate));
     } else {
         printDate = new Date(task.dueDate);
         return $('<li/>', {'class' : 'list-group-item'}).text
-        (' ' + task.taskDesc).attr('data-uuid', task.uuid).attr('data-tabId', task.tabId)
-        .prepend($('<span/>', {'class' : 'glyphicon glyphicon-pushpin'})).append
+        (' ' + task.taskDesc).attr('data-uuid', task.uuid).prepend($('<span/>', 
+        {'class' : 'glyphicon glyphicon-pushpin'})).append
         ($('<span/>', {'class' : 'list-group-item-right'}).text
         (' ' + printDate));
     }
@@ -79,8 +78,7 @@ function Task(taskDesc) {
         
         if(emptyEntry === false) {arrayObject.dueDate = today;}
         
-        arrayObject.uuid = uuid;
-        arrayObject.tabId = tabId;
+        arrayObject.uuid = uuid
     
     return arrayObject;  
 }
@@ -106,11 +104,10 @@ When that’s done, you’ll need to re-render the list HTML. */
     
         tasks.push(newTask);
         var li = displayTasks(newTask);
-        $('ul.nav-list').append(li);
-
-
-        // Re-initialize the placeholder text on the submit form
-        
+//        $('ul.nav-list').append(li);
+          $('#tabs #tabs-1').append(li);
+          
+         // Re-initialize the placeholder text on the submit form
         $('input#newTaskInput').val($(this).attr('placeholder')); 
         $('input#newDateInput').val($(this).attr('placeholder'));
           
@@ -140,19 +137,15 @@ When that’s done, you’ll need to re-render the list HTML. */
 
 $(document).ready(function (){
     
-    // Center my heading
     $('h1').addClass('center');
     
     
     // Add tasks that exist in the Ajax Database file
-    // Set limit to 200 records and sort by dueDate
-    
    $.ajax({'url':'https://api.usergrid.com/kewargo/maintenancetasks/maintenancetasks?ql=order%20by%20dueDate%20dsc&limit=200',         
    'type':'GET', 'success':function(data) {          
        console.log(data);
           tasks = data.entities;
           tasks.uuid = uuid;
-          tasks.tabId = tabId;
             console.log(data.entities);
 
          ul = $('<ul/>', {'class' : 'nav nav-list'});
@@ -167,9 +160,8 @@ $(document).ready(function (){
         
             } // End of "For" loop adding Tasks
     
-            
-            // Hard-coded to add to first tab
-             $('#tabs-1').append(ul);
+//            $('.panel-primary').append(ul);
+              $('#tabs-1').append(ul);
 
               
             // Listen for Double Click to complete a task

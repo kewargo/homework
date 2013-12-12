@@ -3,7 +3,7 @@ $(function() {
     var tabTitle = $( "#tab_title" ),
       tabContent = $( "#tab_content" ),
       tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
-      tabCounter = 2;
+      tabCounter = 5; // Next tab added will be #5
  
     var tabs = $( "#tabs" ).tabs();
  
